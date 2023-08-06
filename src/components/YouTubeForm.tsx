@@ -36,24 +36,30 @@ export const YouTubeForm = () => {
             dob: new Date(),
         },
     })
-    const {register, control, handleSubmit, formState, watch} = form
+    const {register, control, handleSubmit, formState, watch, getValues} = form
 
     const {fields, append, remove} = useFieldArray({
         control,
         name: 'phNumbers',
     })
 
-    // const watchForm = watch() the whole form walues are watched
+    // const watchForm = watch() the whole form walues are watched or subscribe to input changes when a use performs specific fucntions.
+    const handleGetValues = () => {
+        // console.log('Form submitted', getValues())
+        console.log('Form submitted', getValues(['social', 'username']))
+    }
 
     // const watchUsername = watch(['username', 'email']) watches the username and email field
 
     // To perform a side effect after watching a value
-    useEffect(() => {
-        const subscription = watch((value) => {
-            console.log(value)
-        })
-        return () => subscription.unsubscribe()
-    }, [watch])
+    // useEffect(() => {
+    //     const subscription = watch((value) => {
+    //         console.log(value)
+    //     })
+    //     return () => subscription.unsubscribe()
+    // }, [watch])
+
+    // getvalues will not triger re-render or subscibe to input changes
 
     const {errors} = formState
 
@@ -248,6 +254,10 @@ export const YouTubeForm = () => {
                 </div>
 
                 <button>Submit</button>
+
+                <button type="button" onClick={handleGetValues}>
+                    Get values
+                </button>
             </form>
             <DevTool control={control} />
         </div>
