@@ -7,20 +7,22 @@ type FormValues = {
     username: string
     email: string
     channel: string
+    social: {
+        twitter: string
+        facebook: string
+    }
 }
 
 export const YouTubeForm = () => {
     const form = useForm<FormValues>({
-        defaultValues: async () => {
-            const response = await fetch(
-                'https://jsonplaceholder.typicode.com/users/1'
-            )
-            const data = await response.json()
-            return {
-                username: '',
-                email: data.email,
-                channel: '',
-            }
+        defaultValues: {
+            username: '',
+            email: '',
+            channel: '',
+            social: {
+                twitter: '',
+                facebook: '',
+            },
         },
     })
     const {register, control, handleSubmit, formState} = form
@@ -58,7 +60,7 @@ export const YouTubeForm = () => {
                         id="email"
                         {...register('email', {
                             pattern: {
-                                value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*s/,
+                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                                 message: 'Invalid email format',
                             },
                             validate: {
@@ -93,6 +95,24 @@ export const YouTubeForm = () => {
                         })}
                     />
                     <p className="error">{errors.channel?.message}</p>
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="twitter">Twitter</label>
+                    <input
+                        type="text"
+                        id="twitter"
+                        {...register('social.twitter')}
+                    />
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="facebook">Facebook</label>
+                    <input
+                        type="text"
+                        id="facebook"
+                        {...register('social.facebook')}
+                    />
                 </div>
 
                 <button>Submit</button>
