@@ -23,7 +23,7 @@ type FormValues = {
 export const YouTubeForm = () => {
     const form = useForm<FormValues>({
         defaultValues: {
-            username: '',
+            username: 'Bruce Wayne',
             email: '',
             channel: '',
             social: {
@@ -36,19 +36,37 @@ export const YouTubeForm = () => {
             dob: new Date(),
         },
     })
-    const {register, control, handleSubmit, formState, watch, getValues} = form
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState,
+        watch,
+        getValues,
+        setValue,
+    } = form
 
     const {fields, append, remove} = useFieldArray({
         control,
         name: 'phNumbers',
     })
 
-    // const watchForm = watch() the whole form walues are watched or subscribe to input changes when a use performs specific fucntions.
+    // getvalues will not triger re-render or subscibe to input changes
     const handleGetValues = () => {
         // console.log('Form submitted', getValues())
         console.log('Form submitted', getValues(['social', 'username']))
     }
 
+    // Set field vlaues programmatically, takes
+    const handleSetValue = () => {
+        setValue('username', '', {
+            shouldValidate: true,
+            shouldDirty: true,
+            shouldTouch: true,
+        })
+    }
+
+    // const watchForm = watch() the whole form walues are watched or subscribe to input changes when a use performs specific fucntions.
     // const watchUsername = watch(['username', 'email']) watches the username and email field
 
     // To perform a side effect after watching a value
@@ -58,8 +76,6 @@ export const YouTubeForm = () => {
     //     })
     //     return () => subscription.unsubscribe()
     // }, [watch])
-
-    // getvalues will not triger re-render or subscibe to input changes
 
     const {errors} = formState
 
@@ -257,6 +273,10 @@ export const YouTubeForm = () => {
 
                 <button type="button" onClick={handleGetValues}>
                     Get values
+                </button>
+
+                <button type="button" onClick={handleSetValue}>
+                    Set values
                 </button>
             </form>
             <DevTool control={control} />
