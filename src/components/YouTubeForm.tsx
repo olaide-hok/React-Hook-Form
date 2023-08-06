@@ -30,12 +30,11 @@ export const YouTubeForm = () => {
     const {register, control, handleSubmit, formState} = form
     const {errors} = formState
     const {phoneNumbers} = errors
-    console.log(phoneNumbers)
 
     let errorMsg1, errorMsg2
-    if (phoneNumbers && phoneNumbers.length > 0) {
-        errorMsg1 = phoneNumbers[0].message
-        errorMsg2 = phoneNumbers[1].message
+    if (phoneNumbers && phoneNumbers.length! > 0) {
+        errorMsg1 = phoneNumbers[0]!.message
+        errorMsg2 = phoneNumbers[1]!.message
     }
 
     const onSubmit = (data: FormValues) => {
