@@ -1,5 +1,6 @@
 import {useForm, useFieldArray} from 'react-hook-form'
 import {DevTool} from '@hookform/devtools'
+import {useEffect} from 'react'
 
 let renderCount = 0
 
@@ -42,7 +43,17 @@ export const YouTubeForm = () => {
         name: 'phNumbers',
     })
 
-    const watchUsername = watch('username')
+    // const watchForm = watch() the whole form walues are watched
+
+    // const watchUsername = watch(['username', 'email']) watches the username and email field
+
+    // To perform a side effect after watching a value
+    useEffect(() => {
+        const subscription = watch((value) => {
+            console.log(value)
+        })
+        return () => subscription.unsubscribe()
+    }, [watch])
 
     const {errors} = formState
 
@@ -63,7 +74,7 @@ export const YouTubeForm = () => {
     return (
         <div>
             <h1>YouTube Form ({renderCount / 2})</h1>
-            <h2>Watched value: {watchUsername}</h2>
+            {/* <h2>Watched value: {watchUsername}</h2> */}
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-control">
                     <label htmlFor="username">Username</label>
