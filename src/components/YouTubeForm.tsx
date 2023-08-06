@@ -11,6 +11,7 @@ type FormValues = {
         twitter: string
         facebook: string
     }
+    phoneNumbers: string[]
 }
 
 export const YouTubeForm = () => {
@@ -23,10 +24,19 @@ export const YouTubeForm = () => {
                 twitter: '',
                 facebook: '',
             },
+            phoneNumbers: ['', ''],
         },
     })
     const {register, control, handleSubmit, formState} = form
     const {errors} = formState
+    const {phoneNumbers} = errors
+    console.log(phoneNumbers)
+
+    let errorMsg1, errorMsg2
+    if (phoneNumbers && phoneNumbers.length > 0) {
+        errorMsg1 = phoneNumbers[0].message
+        errorMsg2 = phoneNumbers[1].message
+    }
 
     const onSubmit = (data: FormValues) => {
         console.log('Form Submitted', data)
@@ -113,6 +123,38 @@ export const YouTubeForm = () => {
                         id="facebook"
                         {...register('social.facebook')}
                     />
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="primary-phone">Primary Phone Number</label>
+                    <input
+                        type="text"
+                        id="primary-phone"
+                        {...register('phoneNumbers.0', {
+                            required: {
+                                value: true,
+                                message: 'Primary Phone Number is required',
+                            },
+                        })}
+                    />
+                    <p className="error">{errorMsg1}</p>
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="secondary-phone">
+                        Secondary Phone Number
+                    </label>
+                    <input
+                        type="text"
+                        id="secondary-phone"
+                        {...register('phoneNumbers.1', {
+                            required: {
+                                value: true,
+                                message: 'Secondary Phone Number is required',
+                            },
+                        })}
+                    />
+                    <p className="error">{errorMsg2}</p>
                 </div>
 
                 <button>Submit</button>
