@@ -77,11 +77,11 @@ export const YouTubeForm = () => {
     //     return () => subscription.unsubscribe()
     // }, [watch])
 
-    const {errors, touchedFields, dirtyFields, isDirty} = formState
+    const {errors, touchedFields, dirtyFields, isDirty, isValid} = formState
 
     // isDirty describes the state of the whole form and not that of a specific input field.
 
-    // console.log({touchedFields, dirtyFields, isDirty})
+    console.log({touchedFields, dirtyFields, isDirty, isValid})
 
     const {phoneNumbers} = errors
 
@@ -281,7 +281,7 @@ export const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 {/* isDirty will be false when the form values is not different from its initial values i.e. the form fields have not been interacted with. HTe submit button woill be disabled */}
-                <button disabled={!isDirty}>Submit</button>
+                <button disabled={!isDirty || !isValid}>Submit</button>
 
                 <button type="button" onClick={handleGetValues}>
                     Get values
