@@ -168,7 +168,7 @@ export const YouTubeForm = () => {
                         id="twitter"
                         {...register('social.twitter', {
                             //  In RHF, if a field is disabled, the value becomes undefined and the validation becomes disabled
-                            disabled: true,
+                            disabled: watch('channel') === '',
                             required: 'Enter Twitter username',
                         })}
                     />
