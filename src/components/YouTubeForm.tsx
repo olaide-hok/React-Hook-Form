@@ -77,7 +77,11 @@ export const YouTubeForm = () => {
     //     return () => subscription.unsubscribe()
     // }, [watch])
 
-    const {errors} = formState
+    const {errors, touchedFields, dirtyFields, isDirty} = formState
+
+    // isDirty describes the state of the whole form and not that of a specific input field.
+
+    console.log({touchedFields, dirtyFields, isDirty})
 
     const {phoneNumbers} = errors
 
