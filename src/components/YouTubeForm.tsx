@@ -280,8 +280,8 @@ export const YouTubeForm = () => {
                     />
                     <p className="error">{errors.dob?.message}</p>
                 </div>
-
-                <button>Submit</button>
+                {/* isDirty will be false when the form values is not different from its initial values i.e. the form fields have not been interacted with. HTe submit button woill be disabled */}
+                <button disabled={!isDirty}>Submit</button>
 
                 <button type="button" onClick={handleGetValues}>
                     Get values
