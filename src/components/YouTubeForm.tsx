@@ -77,11 +77,23 @@ export const YouTubeForm = () => {
     //     return () => subscription.unsubscribe()
     // }, [watch])
 
-    const {errors, touchedFields, dirtyFields, isDirty, isValid} = formState
+    const {
+        errors,
+        touchedFields,
+        dirtyFields,
+        isDirty,
+        isValid,
+        isSubmitting, // boolean	true if the form is currently being submitted. false otherwise.
+        isSubmitted, // boolean	Set to true after the form is submitted. Will remain true until the reset method is invoked.
+        isSubmitSuccessful, // boolean	Indicate the form was successfully submitted without any runtime error.
+        submitCount, //number	Number of times the form was submitted.
+    } = formState
+
+    console.log({isSubmitting, isSubmitted, isSubmitSuccessful})
 
     // isDirty describes the state of the whole form and not that of a specific input field.
 
-    console.log({touchedFields, dirtyFields, isDirty, isValid})
+    // console.log({touchedFields, dirtyFields, isDirty, isValid})
 
     const {phoneNumbers} = errors
 
@@ -281,7 +293,9 @@ export const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 {/* isDirty will be false when the form values is not different from its initial values i.e. the form fields have not been interacted with. HTe submit button woill be disabled */}
-                <button disabled={!isDirty || !isValid}>Submit</button>
+                <button disabled={!isDirty || !isValid || isSubmitting}>
+                    Submit
+                </button>
 
                 <button type="button" onClick={handleGetValues}>
                     Get values
