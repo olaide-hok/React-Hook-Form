@@ -81,7 +81,7 @@ export const YouTubeForm = () => {
 
     // isDirty describes the state of the whole form and not that of a specific input field.
 
-    console.log({touchedFields, dirtyFields, isDirty})
+    // console.log({touchedFields, dirtyFields, isDirty})
 
     const {phoneNumbers} = errors
 
@@ -166,7 +166,11 @@ export const YouTubeForm = () => {
                     <input
                         type="text"
                         id="twitter"
-                        {...register('social.twitter')}
+                        {...register('social.twitter', {
+                            //  In RHF, if a field is disabled, the value becomes undefined and the validation becomes disabled
+                            disabled: true,
+                            required: 'Enter Twitter username',
+                        })}
                     />
                 </div>
 
