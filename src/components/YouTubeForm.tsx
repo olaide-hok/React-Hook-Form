@@ -44,6 +44,7 @@ export const YouTubeForm = () => {
         watch,
         getValues,
         setValue,
+        reset,
     } = form
 
     const {fields, append, remove} = useFieldArray({
@@ -89,7 +90,13 @@ export const YouTubeForm = () => {
         submitCount, //number	Number of times the form was submitted.
     } = formState
 
-    console.log({isSubmitting, isSubmitted, isSubmitSuccessful})
+    // console.log({isSubmitting, isSubmitted, isSubmitSuccessful})
+
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset()
+        }
+    }, [isSubmitSuccessful, reset])
 
     // isDirty describes the state of the whole form and not that of a specific input field.
 
