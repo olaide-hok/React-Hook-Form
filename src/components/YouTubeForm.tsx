@@ -35,6 +35,7 @@ export const YouTubeForm = () => {
             age: 0,
             dob: new Date(),
         },
+        mode: 'onTouched', //onSubmit by default. onChange, onBlur, onTouched. 'all' mode triggers validation on onBlur and onChange validation modes. Deternmies when the validation should occur.
     })
     const {
         register,
@@ -161,6 +162,16 @@ export const YouTubeForm = () => {
                                     return (
                                         !fieldValue.endsWith('baddomain.com') ||
                                         'This domain is not supported'
+                                    )
+                                },
+                                emailAvailabilty: async (fieldValue) => {
+                                    const response = await fetch(
+                                        `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                                    )
+                                    const data = await response.json()
+                                    return (
+                                        data.length == 0 ||
+                                        'Email already exists'
                                     )
                                 },
                             },
@@ -300,9 +311,8 @@ export const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 {/* isDirty will be false when the form values is not different from its initial values i.e. the form fields have not been interacted with. HTe submit button woill be disabled */}
-                <button disabled={!isDirty || !isValid || isSubmitting}>
-                    Submit
-                </button>
+                {/* <button disabled={!isDirty || !isValid || isSubmitting}> */}
+                <button disabled={!isDirty || isSubmitting}>Submit</button>
 
                 <button type="button" onClick={handleGetValues}>
                     Get values
