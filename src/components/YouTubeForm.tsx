@@ -46,6 +46,7 @@ export const YouTubeForm = () => {
         getValues,
         setValue,
         reset,
+        trigger, // allows for manual triggering of validation errors for form fields. This method takes an optional parameter of field name which triggers validation for that specific field.
     } = form
 
     const {fields, append, remove} = useFieldArray({
@@ -320,6 +321,10 @@ export const YouTubeForm = () => {
 
                 <button type="button" onClick={handleSetValue}>
                     Set values
+                </button>
+
+                <button type="button" onClick={() => trigger('channel')}>
+                    Validate
                 </button>
             </form>
             <DevTool control={control} />
